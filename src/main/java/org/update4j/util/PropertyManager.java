@@ -15,6 +15,8 @@
  */
 package org.update4j.util;
 
+// Removed/Modded by HP, for J1.8 downgrade compatibility
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -264,9 +266,24 @@ public class PropertyManager {
 					 * https://stackoverflow.com/a/34464459
 					 * This regex will not replace characters inside an existing placeholder.
 					 */
-					String pattern = "(\\$\\{[^{}]*)|" + quote;
+                                        // Removed/Modded by HP, for J1.8 downgrade compatibility					
+/*                                      String pattern = "(\\$\\{[^{}]*)|" + quote;
 					Matcher m = Pattern.compile(pattern).matcher(str);
 					str = m.replaceAll(i -> i.group(1) != null ? Matcher.quoteReplacement(i.group(1)) : wrappedKey);
+*/                                                                              
+                                        StringBuffer result = new StringBuffer();
+                                        String pattern = "(\\$\\{[^{}]*)|" + quote;
+                                        Matcher m = Pattern.compile(pattern).matcher(str);
+                                        while (m.find()) {
+                                            if (m.group(1) != null) {
+                                                m.appendReplacement(result, Matcher.quoteReplacement(m.group(1))); // if a #{} block found, restore it
+                                            }
+                                            else {
+                                                m.appendReplacement(result, wrappedKey); // else, replace true with wrappedKey
+                                            }
+                                        }
+                                        m.appendTail(result);
+                                        str = new String (result);
 				}
 			}
 
@@ -350,7 +367,9 @@ public class PropertyManager {
 						String sys = trySystemProperty(key);
 
 						noDeps.put(key, sys);
-						found.add(Map.entry(key, sys));
+                                                // Removed/Modded by HP, for J1.8 downgrade compatibility
+                                                //found.add(Map.entry(key, sys));                                                
+                                                found.add(new AbstractMap.SimpleEntry<>(key, sys));
 
 						foundSystem = true;
 					}

@@ -5,10 +5,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-import java.lang.module.ModuleDescriptor;
-import java.lang.module.ModuleDescriptor.Requires;
-import java.lang.module.ModuleFinder;
-import java.lang.module.ModuleReference;
+// Removed/Modded by HP, for J1.8 downgrade compatibility
+//import java.lang.module.ModuleDescriptor;
+//import java.lang.module.ModuleDescriptor.Requires;
+//import java.lang.module.ModuleFinder;
+//import java.lang.module.ModuleReference;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,7 +18,8 @@ import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
+// Removed/Modded by HP, for J1.8 downgrade compatibility
+//import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.security.PublicKey;
 import java.security.Signature;
@@ -27,7 +29,8 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+// Removed/Modded by HP, for J1.8 downgrade compatibility
+//import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.update4j.inject.Injectable;
@@ -36,7 +39,8 @@ import org.update4j.service.Launcher;
 import org.update4j.service.Service;
 import org.update4j.service.UpdateHandler;
 import org.update4j.util.FileUtils;
-import org.update4j.util.StringUtils;
+// Removed/Modded by HP, for J1.8 downgrade compatibility
+//import org.update4j.util.StringUtils;
 import org.update4j.util.Warning;
 
 class ConfigImpl {
@@ -302,12 +306,13 @@ class ConfigImpl {
 	}
 
 	private static void checkBootConflicts(FileMetadata file, Path download) throws IOException {
-		if (!FileUtils.isZipFile(download)) {
+                if (!FileUtils.isZipFile(download)) {
 			Warning.nonZip(file.getPath().getFileName().toString());
 			throw new IllegalStateException(
 							"File '" + file.getPath().getFileName().toString() + "' is not a valid zip file.");
 		}
-
+                // Removed/Modded by HP, for J1.8 downgrade compatibility
+/*
 		Set<Module> modules = ModuleLayer.boot().modules();
 		Set<String> moduleNames = modules.stream().map(Module::getName).collect(Collectors.toSet());
 
@@ -384,6 +389,7 @@ class ConfigImpl {
 
 			}
 		}
+                */
 	}
 
 	static void doLaunch(Configuration config, Injectable injectable, Launcher launcher) {
@@ -414,7 +420,8 @@ class ConfigImpl {
 			Warning.path();
 		}
 
-		ModuleFinder finder = ModuleFinder.of(modulepaths.toArray(new Path[modulepaths.size()]));
+                // Removed/Modded by HP, for J1.8 downgrade compatibility
+/*		ModuleFinder finder = ModuleFinder.of(modulepaths.toArray(new Path[modulepaths.size()]));
 
 		Set<ModuleDescriptor> moduleDescriptors = finder.findAll()
 						.stream()
@@ -456,12 +463,16 @@ class ConfigImpl {
 		ModuleLayer parent = ModuleLayer.boot();
 		java.lang.module.Configuration cf = parent.configuration()
 						.resolveAndBind(ModuleFinder.of(), finder, moduleNames);
-
+*/
 		ClassLoader parentClassLoader = Thread.currentThread().getContextClassLoader();
-		ClassLoader classpathLoader = new URLClassLoader("classpath", classpaths.toArray(new URL[classpaths.size()]),
+		// Removed/Modded by HP, for J1.8 downgrade compatibility
+//                ClassLoader classpathLoader = new URLClassLoader("classpath", classpaths.toArray(new URL[classpaths.size()]),
+//						parentClassLoader);
+                ClassLoader classpathLoader = new URLClassLoader(classpaths.toArray(new URL[classpaths.size()]),
 						parentClassLoader);
-
-		ModuleLayer.Controller controller = ModuleLayer.defineModulesWithOneLoader(cf, List.of(parent),
+		
+                // Removed/Modded by HP, for J1.8 downgrade compatibility
+/*                ModuleLayer.Controller controller = ModuleLayer.defineModulesWithOneLoader(cf, List.of(parent),
 						classpathLoader);
 		ModuleLayer layer = controller.layer();
 
@@ -501,17 +512,22 @@ class ConfigImpl {
 				}
 			}
 		}
-
+*/
 		ClassLoader contextClassLoader = classpathLoader;
-		if (moduleNames.size() > 0) {
+                
+                // Removed/Modded by HP, for J1.8 downgrade compatibility
+/*		if (moduleNames.size() > 0) {
 			contextClassLoader = layer.findLoader(moduleNames.get(0));
 		}
-
-		LaunchContext ctx = new LaunchContext(layer, contextClassLoader, config);
-
+*/
+                // Removed/Modded by HP, for J1.8 downgrade compatibility
+		//LaunchContext ctx = new LaunchContext(layer, contextClassLoader, config);
+                LaunchContext ctx = new LaunchContext(null, contextClassLoader, config);
 		boolean usingSpi = launcher == null;
 		if (usingSpi) {
-			launcher = Service.loadService(layer, contextClassLoader, Launcher.class, config.getLauncher());
+                        // Removed/Modded by HP, for J1.8 downgrade compatibility
+			//launcher = Service.loadService(layer, contextClassLoader, Launcher.class, config.getLauncher());
+                        launcher = Service.loadService(null, contextClassLoader, Launcher.class, config.getLauncher());
 
 			if (injectable != null) {
 				try {

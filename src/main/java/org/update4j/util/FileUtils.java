@@ -32,6 +32,8 @@ import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.SignatureException;
 import java.util.ArrayList;
+// Added by HP, for J1.8 downgrade compatibility
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
@@ -256,10 +258,12 @@ public class FileUtils {
 						.collect(Collectors.joining(" "));
 
 		if (OS.CURRENT == OS.WINDOWS) {
-			commands.addAll(List.of("cmd", "/c"));
+                        // Removed/Modded by HP, for J1.8 downgrade compatibility
+			commands.addAll(Arrays.asList("cmd", "/c"));
 			commands.add("ping localhost -n " + (secondsDelay + 1) + " & del " + filenames);
 		} else {
-			commands.addAll(List.of("sh", "-c"));
+                        // Removed/Modded by HP, for J1.8 downgrade compatibility
+			commands.addAll(Arrays.asList("sh", "-c"));
 			commands.add("sleep " + secondsDelay + " ; rm " + filenames);
 		}
 

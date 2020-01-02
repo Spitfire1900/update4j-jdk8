@@ -15,6 +15,9 @@
  */
 package org.update4j.util;
 
+// Added by HP, for J1.8 downgrade compatibility
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 public class StringUtils {
@@ -29,18 +32,21 @@ public class StringUtils {
 	private static final Set<String> systemModules;
 
 	static {
-		keywords = Set.of("abstract", "continue", "for", "new", "switch", "assert", "default", "goto", "package",
+                // Removed/Modded by HP, for J1.8 downgrade compatibility
+		keywords = new HashSet<>(Arrays.asList("abstract", "continue", "for", "new", "switch", "assert", "default", "goto", "package",
 						"synchronized", "boolean", "do", "if", "private", "this", "break", "double", "implements",
 						"protected", "throw", "byte", "else", "import", "public", "throws", "case", "enum",
 						"instanceof", "return", "transient", "catch", "extends", "int", "short", "try", "char", "final",
 						"interface", "static", "void", "class", "finally", "long", "strictfp", "volatile", "const",
-						"float", "native", "super", "while");
+						"float", "native", "super", "while"));
 
-		moduleKeywords = Set.of("module", "open", "opens", "exports", "requires", "transitive", "to", "with",
-						"provides", "uses");
+                // Removed/Modded by HP, for J1.8 downgrade compatibility
+		moduleKeywords = new HashSet<>(Arrays.asList("module", "open", "opens", "exports", "requires", "transitive", "to", "with",
+						"provides", "uses"));
 
 		// Last updated JDK 11
-		systemModules = Set.of("java.rmi", "jdk.management.jfr", "jdk.jdi", "jdk.charsets", "jdk.pack", "java.xml",
+                // Removed/Modded by HP, for J1.8 downgrade compatibility
+		systemModules = new HashSet<>(Arrays.asList("java.rmi", "jdk.management.jfr", "jdk.jdi", "jdk.charsets", "jdk.pack", "java.xml",
 						"jdk.xml.dom", "jdk.rmic", "java.datatransfer", "jdk.jstatd", "jdk.httpserver", "jdk.jcmd",
 						"java.desktop", "java.se", "java.security.sasl", "jdk.zipfs", "java.base", "jdk.crypto.ec",
 						"jdk.javadoc", "jdk.management.agent", "jdk.jshell", "jdk.editpad", "java.sql.rowset",
@@ -54,7 +60,7 @@ public class StringUtils {
 						"jdk.jdwp.agent", "jdk.internal.jvmstat", "java.instrument", "jdk.internal.vm.compiler",
 						"jdk.internal.vm.compiler.management", "jdk.management", "jdk.security.auth", "java.scripting",
 						"jdk.jdeps", "jdk.aot", "jdk.jartool", "java.management.rmi", "jdk.naming.dns",
-						"jdk.localedata");
+						"jdk.localedata"));
 	}
 
 	public static boolean isClassName(String name) {

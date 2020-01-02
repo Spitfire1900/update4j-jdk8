@@ -27,12 +27,18 @@ import org.update4j.service.Launcher;
  */
 public class LaunchContext {
 
-	private ModuleLayer layer;
+        // Removed/Modded by HP, for J1.8 downgrade compatibility
+	// private ModuleLayer layer;
+        private Object layer;               // dummy placeholder
 	private ClassLoader classLoader;
 	private Configuration config;
 
-	LaunchContext(ModuleLayer layer, ClassLoader classLoader, Configuration config) {
-		this.layer = Objects.requireNonNull(layer);
+        // Removed/Modded by HP, for J1.8 downgrade compatibility
+	//LaunchContext(ModuleLayer layer, ClassLoader classLoader, Configuration config) {
+        LaunchContext(Object layer, ClassLoader classLoader, Configuration config) {
+		// Removed/Modded by HP, for J1.8 downgrade compatibility
+                //this.layer = Objects.requireNonNull(layer);
+                this.layer = layer;
 		this.classLoader = Objects.requireNonNull(classLoader);
 		this.config = Objects.requireNonNull(config);
 	}
@@ -43,7 +49,9 @@ public class LaunchContext {
 	 * 
 	 * @return The dynamic module layer.
 	 */
-	public ModuleLayer getModuleLayer() {
+        // Removed/Modded by HP, for J1.8 downgrade compatibility
+	//public ModuleLayer getModuleLayer() {
+        public Object getModuleLayer() {
 		return layer;
 	}
 

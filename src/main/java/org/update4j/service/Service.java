@@ -15,11 +15,14 @@
  */
 package org.update4j.service;
 
+// Added/Modded by HP, for J1.8 downgrade compatibility
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ServiceLoader;
-import java.util.ServiceLoader.Provider;
-import java.util.stream.Collectors;
+// Removed/Modded by HP, for J1.8 downgrade compatibility
+//import java.util.ServiceLoader.Provider;
+//import java.util.stream.Collectors;
 
 import org.update4j.inject.Injectable;
 import org.update4j.util.StringUtils;
@@ -30,8 +33,9 @@ public interface Service extends Injectable {
 		return 0L;
 	}
 
-	public static <T extends Service> T loadService(ModuleLayer layer, ClassLoader classLoader, Class<T> type,
-					String classname) {
+        // Removed/Modded by HP, for J1.8 downgrade compatibility
+        //public static <T extends Service> T loadService(ModuleLayer layer, ClassLoader classLoader, Class<T> type,
+        public static <T extends Service> T loadService(Object layer, ClassLoader classLoader, Class<T> type, String classname) {
 		if (classname != null && !StringUtils.isClassName(classname)) {
 			throw new IllegalArgumentException(classname + " is not a valid Java class name.");
 		}
@@ -41,24 +45,35 @@ public interface Service extends Injectable {
 		}
 
 		ServiceLoader<T> loader;
-		List<Provider<T>> providers = new ArrayList<>();
+                // Removed/Modded by HP, for J1.8 downgrade compatibility
+		//List<Provider<T>> providers = new ArrayList<>();
 
 		if (layer != null) {
-			loader = ServiceLoader.load(layer, type);
-			providers.addAll(loader.stream().collect(Collectors.toList()));
+                        // Removed/Modded by HP, for J1.8 downgrade compatibility
+			//loader = ServiceLoader.load(layer, type);
+                        //providers.addAll(loader.stream().collect(Collectors.toList()));
 		}
 
 		loader = ServiceLoader.load(type, classLoader);
-		providers.addAll(loader.stream().collect(Collectors.toList()));
-
+		// Removed/Modded by HP, for J1.8 downgrade compatibility
+                //providers.addAll(loader.stream().collect(Collectors.toList()));
+                Iterator<T> iterator = loader.iterator();
+                
 		if (classname != null) {
 			// an explicit class name is used
 			// first lets look at providers, to locate in closed modules
-			for (Provider<T> p : providers) {
+                        // Removed/Modded by HP, for J1.8 downgrade compatibility
+/*			for (Provider<T> p : providers) {
 				if (p.type().getName().equals(classname))
 					return p.get();
 			}
-
+*/
+                        while (iterator.hasNext()) {
+                            T p = iterator.next();
+                            if (p.getClass().getName().equals(classname))
+                                return p;
+                        }
+                        
 			// nothing found, lets load with reflection
 			try {
 				Class<?> clazz = classLoader.loadClass(classname);
@@ -82,15 +97,23 @@ public interface Service extends Injectable {
 
 		} else {
 
-			if (providers.isEmpty()) {
+                        // Removed/Modded by HP, for J1.8 downgrade compatibility
+			//if (providers.isEmpty()) {
+                        if (!iterator.hasNext()) {
 				throw new IllegalStateException("No provider found for " + type.getCanonicalName());
 			}
 
-			List<T> values = providers.stream().map(Provider::get).collect(Collectors.toList());
+			// Removed/Modded by HP, for J1.8 downgrade compatibility
+                        //List<T> values = providers.stream().map(Provider::get).collect(Collectors.toList());
+                        List<T> values = new ArrayList();
+                        while (iterator.hasNext()) {
+                            T p = iterator.next();
+                            values.add(p);
+                        }
 
 			long maxVersion = Long.MIN_VALUE;
 			T maxValue = null;
-			for (T t : values) {
+                        for (T t : values) {
 				long version = t.version();
 				if (maxVersion <= version) {
 					maxVersion = version;
@@ -102,7 +125,9 @@ public interface Service extends Injectable {
 		}
 	}
 
-	public static <T extends Service> T loadService(ModuleLayer layer, ClassLoader classLoader, Class<T> type) {
+	
+ // Removed/Modded by HP, for J1.8 downgrade compatibility
+        /*public static <T extends Service> T loadService(ModuleLayer layer, ClassLoader classLoader, Class<T> type) {
 		return loadService(layer, classLoader, type, null);
 	}
 
@@ -113,7 +138,7 @@ public interface Service extends Injectable {
 	public static <T extends Service> T loadService(ModuleLayer layer, Class<T> type) {
 		return loadService(layer, null, type, null);
 	}
-
+*/
 	public static <T extends Service> T loadService(ClassLoader classLoader, Class<T> type, String classname) {
 		return loadService(null, classLoader, type, classname);
 	}
@@ -129,5 +154,5 @@ public interface Service extends Injectable {
 	public static <T extends Service> T loadService(Class<T> type) {
 		return loadService(type, null);
 	}
-
+      
 }
