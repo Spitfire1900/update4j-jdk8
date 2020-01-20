@@ -76,7 +76,7 @@ public interface Injectable {
 		notifyPostInject(target, source);
 	}
 
-        // Removed/Modded by HP, for J1.8 downgrade compatibility
+        // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 	//private static Map<String, Object> getSourceObjects(Injectable obj) throws IllegalAccessException {
         static Map<String, Object> getSourceObjects(Injectable obj) throws IllegalAccessException {
 		Map<String, Object> map = new HashMap<>();
@@ -103,7 +103,7 @@ public interface Injectable {
 		return map;
 	}
 
-        // Removed/Modded by HP, for J1.8 downgrade compatibility
+        // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 	//private static void injectValues(Injectable obj, Map<String, Object> map)
         static void injectValues(Injectable obj, Map<String, Object> map)
 					throws UnsatisfiedInjectionException, IllegalAccessException {
@@ -125,7 +125,7 @@ public interface Injectable {
 		}
 	}
 
-        // Removed/Modded by HP, for J1.8 downgrade compatibility
+        // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 	//private static void notifyPostInject(Injectable callback, Injectable parameter)
         static void notifyPostInject(Injectable callback, Injectable parameter)
 					throws IllegalAccessException, InvocationTargetException {

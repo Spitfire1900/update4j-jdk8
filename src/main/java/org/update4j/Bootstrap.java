@@ -15,7 +15,7 @@
  */
 package org.update4j;
 
-// Added by HP, for J1.8 downgrade compatibility
+// Added by Livio Cavallo, for J1.8 downgrade compatibility
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -85,7 +85,7 @@ public class Bootstrap {
 	 */
 	public static void main(String[] args) throws Throwable {
 		String classname = null;
-		// Removed/Modded by HP, for J1.8 downgrade compatibility
+		// Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
                 List<String> argsList = Arrays.asList(args);
 
 		if (args.length > 0) {
@@ -295,8 +295,8 @@ public class Bootstrap {
 	 *             Any throwable thrown in the bootstrap.
 	 */
 	public static void start(Delegate delegate, List<String> args) throws Throwable {
-            // Removed/Modded by HP, for J1.8 downgrade compatibility	
+            // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility	
             args = args == null ? Arrays.asList(): args;
-		delegate.main(args);
+            delegate.main(args);
 	}
 }

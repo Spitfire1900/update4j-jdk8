@@ -6,8 +6,8 @@
 	<groupId>org.update4j</groupId>
 	<artifactId>update4j</artifactId>
 	<version>1.4.4(J1.8-downgraded)</version>
-	<name>update4j</name>
-	<description>Updates and launches Java 8+ Applications</description>
+	<name>update4j(xJ1.8)</name>
+	<description>Updates and launches Java 1.8+ Applications</description>
 	<url>https://github.com/update4j/update4j</url>
 
 	<licenses>
@@ -23,6 +23,10 @@
 			<email>mordechai112@gmail.com</email>
 			<organization>update4j</organization>
 			<organizationUrl>http://update4j.org/</organizationUrl>
+		</developer>
+                <developer>
+			<name>Livio Cavallo</name>
+			<email>cavallo.livio@tiscali.it</email>
 		</developer>
 	</developers>
 

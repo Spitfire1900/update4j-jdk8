@@ -253,8 +253,8 @@ public class ConfigMapper extends XmlMapper {
 			if (!sign.verify(Base64.getDecoder().decode(signature))) {
 				throw new SecurityException("Signature verification failed.");
 			}
-
-		} catch (InvalidKeyException | SignatureException | NoSuchAlgorithmException e) {
+                // Livio Cavallo added: catch IllegalArgumentException too, as it can be thrown by Decoder.decode()
+		} catch (InvalidKeyException | SignatureException | NoSuchAlgorithmException | IllegalArgumentException e) {
 			throw new SecurityException(e);
 		}
 	}

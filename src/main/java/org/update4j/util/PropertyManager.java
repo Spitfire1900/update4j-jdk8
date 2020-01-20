@@ -15,7 +15,7 @@
  */
 package org.update4j.util;
 
-// Removed/Modded by HP, for J1.8 downgrade compatibility
+// Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -266,7 +266,7 @@ public class PropertyManager {
 					 * https://stackoverflow.com/a/34464459
 					 * This regex will not replace characters inside an existing placeholder.
 					 */
-                                        // Removed/Modded by HP, for J1.8 downgrade compatibility					
+                                        // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility					
 /*                                      String pattern = "(\\$\\{[^{}]*)|" + quote;
 					Matcher m = Pattern.compile(pattern).matcher(str);
 					str = m.replaceAll(i -> i.group(1) != null ? Matcher.quoteReplacement(i.group(1)) : wrappedKey);
@@ -367,7 +367,7 @@ public class PropertyManager {
 						String sys = trySystemProperty(key);
 
 						noDeps.put(key, sys);
-                                                // Removed/Modded by HP, for J1.8 downgrade compatibility
+                                                // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
                                                 //found.add(Map.entry(key, sys));                                                
                                                 found.add(new AbstractMap.SimpleEntry<>(key, sys));
 

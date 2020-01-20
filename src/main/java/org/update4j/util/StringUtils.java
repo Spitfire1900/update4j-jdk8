@@ -15,7 +15,7 @@
  */
 package org.update4j.util;
 
-// Added by HP, for J1.8 downgrade compatibility
+// Added by Livio Cavallo, for J1.8 downgrade compatibility
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,7 +32,7 @@ public class StringUtils {
 	private static final Set<String> systemModules;
 
 	static {
-                // Removed/Modded by HP, for J1.8 downgrade compatibility
+                // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 		keywords = new HashSet<>(Arrays.asList("abstract", "continue", "for", "new", "switch", "assert", "default", "goto", "package",
 						"synchronized", "boolean", "do", "if", "private", "this", "break", "double", "implements",
 						"protected", "throw", "byte", "else", "import", "public", "throws", "case", "enum",
@@ -40,12 +40,12 @@ public class StringUtils {
 						"interface", "static", "void", "class", "finally", "long", "strictfp", "volatile", "const",
 						"float", "native", "super", "while"));
 
-                // Removed/Modded by HP, for J1.8 downgrade compatibility
+                // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 		moduleKeywords = new HashSet<>(Arrays.asList("module", "open", "opens", "exports", "requires", "transitive", "to", "with",
 						"provides", "uses"));
 
 		// Last updated JDK 11
-                // Removed/Modded by HP, for J1.8 downgrade compatibility
+                // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 		systemModules = new HashSet<>(Arrays.asList("java.rmi", "jdk.management.jfr", "jdk.jdi", "jdk.charsets", "jdk.pack", "java.xml",
 						"jdk.xml.dom", "jdk.rmic", "java.datatransfer", "jdk.jstatd", "jdk.httpserver", "jdk.jcmd",
 						"java.desktop", "java.se", "java.security.sasl", "jdk.zipfs", "java.base", "jdk.crypto.ec",

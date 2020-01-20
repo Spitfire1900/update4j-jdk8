@@ -15,7 +15,7 @@
  */
 package org.update4j.util;
 
-// Added by HP, for J1.8 downgrade compatibility
+// Added by Livio Cavallo, for J1.8 downgrade compatibility
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -82,7 +82,7 @@ public class ArgUtils {
 	public static List<String> afterSeparator(List<String> args) {
 		int separatorIdx = args.indexOf("--");
 		if (separatorIdx < 0) {
-                        // Removed/Modded by HP, for J1.8 downgrade compatibility
+                        // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 			return Arrays.asList();
 		} else {
 			return args.subList(separatorIdx + 1, args.size());

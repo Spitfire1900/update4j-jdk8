@@ -31,7 +31,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-// Added by HP, for J1.8 downgrade compatibility
+// Added by Livio Cavallo, for J1.8 downgrade compatibility
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
@@ -176,7 +176,7 @@ public class SingleInstanceManager {
 	public static void execute(List<String> args, Consumer<? super List<String>> onNewInstance, Path lockFileDir) {
 
 		if (args == null) {
-                        // Removed/Modded by HP, for J1.8 downgrade compatibility
+                        // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 			args = Arrays.asList();
 		}
 

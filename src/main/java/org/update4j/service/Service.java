@@ -15,12 +15,12 @@
  */
 package org.update4j.service;
 
-// Added/Modded by HP, for J1.8 downgrade compatibility
+// Added/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ServiceLoader;
-// Removed/Modded by HP, for J1.8 downgrade compatibility
+// Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 //import java.util.ServiceLoader.Provider;
 //import java.util.stream.Collectors;
 
@@ -33,7 +33,7 @@ public interface Service extends Injectable {
 		return 0L;
 	}
 
-        // Removed/Modded by HP, for J1.8 downgrade compatibility
+        // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
         //public static <T extends Service> T loadService(ModuleLayer layer, ClassLoader classLoader, Class<T> type,
         public static <T extends Service> T loadService(Object layer, ClassLoader classLoader, Class<T> type, String classname) {
 		if (classname != null && !StringUtils.isClassName(classname)) {
@@ -45,24 +45,24 @@ public interface Service extends Injectable {
 		}
 
 		ServiceLoader<T> loader;
-                // Removed/Modded by HP, for J1.8 downgrade compatibility
+                // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 		//List<Provider<T>> providers = new ArrayList<>();
 
 		if (layer != null) {
-                        // Removed/Modded by HP, for J1.8 downgrade compatibility
+                        // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 			//loader = ServiceLoader.load(layer, type);
                         //providers.addAll(loader.stream().collect(Collectors.toList()));
 		}
 
 		loader = ServiceLoader.load(type, classLoader);
-		// Removed/Modded by HP, for J1.8 downgrade compatibility
+		// Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
                 //providers.addAll(loader.stream().collect(Collectors.toList()));
                 Iterator<T> iterator = loader.iterator();
                 
 		if (classname != null) {
 			// an explicit class name is used
 			// first lets look at providers, to locate in closed modules
-                        // Removed/Modded by HP, for J1.8 downgrade compatibility
+                        // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 /*			for (Provider<T> p : providers) {
 				if (p.type().getName().equals(classname))
 					return p.get();
@@ -97,13 +97,13 @@ public interface Service extends Injectable {
 
 		} else {
 
-                        // Removed/Modded by HP, for J1.8 downgrade compatibility
+                        // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 			//if (providers.isEmpty()) {
                         if (!iterator.hasNext()) {
 				throw new IllegalStateException("No provider found for " + type.getCanonicalName());
 			}
 
-			// Removed/Modded by HP, for J1.8 downgrade compatibility
+			// Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
                         //List<T> values = providers.stream().map(Provider::get).collect(Collectors.toList());
                         List<T> values = new ArrayList();
                         while (iterator.hasNext()) {
@@ -126,7 +126,7 @@ public interface Service extends Injectable {
 	}
 
 	
- // Removed/Modded by HP, for J1.8 downgrade compatibility
+ // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
         /*public static <T extends Service> T loadService(ModuleLayer layer, ClassLoader classLoader, Class<T> type) {
 		return loadService(layer, classLoader, type, null);
 	}

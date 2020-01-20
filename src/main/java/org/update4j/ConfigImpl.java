@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-// Removed/Modded by HP, for J1.8 downgrade compatibility
+// Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 //import java.lang.module.ModuleDescriptor;
 //import java.lang.module.ModuleDescriptor.Requires;
 //import java.lang.module.ModuleFinder;
@@ -18,7 +18,7 @@ import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
-// Removed/Modded by HP, for J1.8 downgrade compatibility
+// Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 //import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.security.PublicKey;
@@ -29,7 +29,7 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-// Removed/Modded by HP, for J1.8 downgrade compatibility
+// Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 //import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -39,7 +39,7 @@ import org.update4j.service.Launcher;
 import org.update4j.service.Service;
 import org.update4j.service.UpdateHandler;
 import org.update4j.util.FileUtils;
-// Removed/Modded by HP, for J1.8 downgrade compatibility
+// Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 //import org.update4j.util.StringUtils;
 import org.update4j.util.Warning;
 
@@ -311,7 +311,7 @@ class ConfigImpl {
 			throw new IllegalStateException(
 							"File '" + file.getPath().getFileName().toString() + "' is not a valid zip file.");
 		}
-                // Removed/Modded by HP, for J1.8 downgrade compatibility
+                // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 /*
 		Set<Module> modules = ModuleLayer.boot().modules();
 		Set<String> moduleNames = modules.stream().map(Module::getName).collect(Collectors.toSet());
@@ -420,7 +420,7 @@ class ConfigImpl {
 			Warning.path();
 		}
 
-                // Removed/Modded by HP, for J1.8 downgrade compatibility
+                // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 /*		ModuleFinder finder = ModuleFinder.of(modulepaths.toArray(new Path[modulepaths.size()]));
 
 		Set<ModuleDescriptor> moduleDescriptors = finder.findAll()
@@ -465,13 +465,13 @@ class ConfigImpl {
 						.resolveAndBind(ModuleFinder.of(), finder, moduleNames);
 */
 		ClassLoader parentClassLoader = Thread.currentThread().getContextClassLoader();
-		// Removed/Modded by HP, for J1.8 downgrade compatibility
+		// Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 //                ClassLoader classpathLoader = new URLClassLoader("classpath", classpaths.toArray(new URL[classpaths.size()]),
 //						parentClassLoader);
                 ClassLoader classpathLoader = new URLClassLoader(classpaths.toArray(new URL[classpaths.size()]),
 						parentClassLoader);
 		
-                // Removed/Modded by HP, for J1.8 downgrade compatibility
+                // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 /*                ModuleLayer.Controller controller = ModuleLayer.defineModulesWithOneLoader(cf, List.of(parent),
 						classpathLoader);
 		ModuleLayer layer = controller.layer();
@@ -515,17 +515,17 @@ class ConfigImpl {
 */
 		ClassLoader contextClassLoader = classpathLoader;
                 
-                // Removed/Modded by HP, for J1.8 downgrade compatibility
+                // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 /*		if (moduleNames.size() > 0) {
 			contextClassLoader = layer.findLoader(moduleNames.get(0));
 		}
 */
-                // Removed/Modded by HP, for J1.8 downgrade compatibility
+                // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 		//LaunchContext ctx = new LaunchContext(layer, contextClassLoader, config);
                 LaunchContext ctx = new LaunchContext(null, contextClassLoader, config);
 		boolean usingSpi = launcher == null;
 		if (usingSpi) {
-                        // Removed/Modded by HP, for J1.8 downgrade compatibility
+                        // Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
 			//launcher = Service.loadService(layer, contextClassLoader, Launcher.class, config.getLauncher());
                         launcher = Service.loadService(null, contextClassLoader, Launcher.class, config.getLauncher());
 
