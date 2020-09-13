@@ -19,6 +19,10 @@ version = '1.4.4-1-jdk8+liviocavallo+spitfire1900'
 description = 'update4j(xJ1.8)'
 sourceCompatibility = '1.8'
 
+java {
+    withSourcesJar()
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
