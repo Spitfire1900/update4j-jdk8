@@ -105,7 +105,7 @@ public interface Service extends Injectable {
 
 			// Removed/Modded by Livio Cavallo, for J1.8 downgrade compatibility
                         //List<T> values = providers.stream().map(Provider::get).collect(Collectors.toList());
-                        List<T> values = new ArrayList();
+                        List<T> values = new ArrayList<T>();
                         while (iterator.hasNext()) {
                             T p = iterator.next();
                             values.add(p);
